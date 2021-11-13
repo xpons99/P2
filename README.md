@@ -110,10 +110,18 @@ Ejercicios
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para
 	  estar seguros de que un segmento de señal se corresponde con voz.
+	  
+	  
+	  **El silencio inicial tiene una potencia de hasta 40dB, y el señal útil va desde los 50dB hasto los 65 dB en segun que letras. Por lo tanto el incremento del nivel de potencia debería ser de unos 15dB.**
 
 	* Duración mínima razonable de los segmentos de voz y silencio.
 
+	** La duración mínima de silencio entre segmentos de voz, a partir de nuestro espectrograma, consideramos que debe ser aproximadamente de unos 0,3 segundos. La spearación entre nuestros nombres es de 0,45 aprox. Hemos decidido una duración mínima de 0,3 porque es preferible considerar algo más de silencio como parte de voz que no al contrario ya que podríamos perder información. Para la voz, consideramos unos 0,2 segundos.**
+
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
+
+	**Lo dejamos para más tarde**
+	
 
 
 ### Desarrollo del detector de actividad vocal
