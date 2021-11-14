@@ -104,16 +104,27 @@ Ejercicios
 - Etiquete manualmente los segmentos de voz y silencio del fichero grabado al efecto. Inserte, a 
   continuación, una captura de `wavesurfer` en la que se vea con claridad la señal temporal, el contorno de
   potencia y la tasa de cruces por cero, junto con el etiquetado manual de los segmentos.
+  
+  ![](img/wavesurfer.PNG)
+
 
 
 - A la vista de la gráfica, indique qué valores considera adecuados para las magnitudes siguientes:
 
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para
 	  estar seguros de que un segmento de señal se corresponde con voz.
+	  
+	  
+	  **El silencio inicial tiene una potencia de hasta 40dB, y el señal útil va desde los 50dB hasto los 65 dB en segun que letras. Por lo tanto el incremento del nivel de potencia debería ser de unos 10-15dB.**
 
 	* Duración mínima razonable de los segmentos de voz y silencio.
 
+	**La duración mínima de silencio entre segmentos de voz, a partir de nuestro espectrograma, consideramos que debe ser aproximadamente de unos 0,3 segundos. La spearación entre nuestros nombres es de 0,45 aprox. Hemos decidido una duración mínima de 0,3 porque es preferible considerar algo más de silencio como parte de voz que no al contrario ya que podríamos perder información. Para la voz, consideramos unos 0,2 segundos.**
+	
 	* ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
+
+	**En los segmentos de silencio aumentan la tasa de cruces por cero, mientras que en los segmentos de voz tiende a reducirse. Aún así, hay ciertos fonemas como el /s/ que tiene una tasa alta de cruces por cero. Es un parámetro a tener en cuenta, pero no es el único.**
+	
 
 
 ### Desarrollo del detector de actividad vocal
@@ -121,16 +132,25 @@ Ejercicios
 - Complete el código de los ficheros de la práctica para implementar un detector de actividad vocal tan
   exacto como sea posible. Tome como objetivo la maximización de la puntuación-F `TOTAL`.
 
+**En los ficheros subidos, se puede observar el desarrollo de la actividad.**
+
 - Inserte una gráfica en la que se vea con claridad la señal temporal, el etiquetado manual y la detección
   automática conseguida para el fichero grabado al efecto. 
 
+![](img/vad_lab_ws.png)
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
+
+**En la gráfica anterior, lo que corresponde al etiquetado automático de nuestro programa es el superior el .vad. El etiquetado manual es el correspondiente al .lab. A nivel manual podemos ser algo más imprecisos ya que nos basamos en nuestro oido y vista para etiquetar los segmentos. La máquina, en cambio, se basa en varios parámetros como las subidas y bajadas de potencia, en la duración de éstos, las tasas de cruces por cero... Por lo tanto, si el algoritmo está bien implementado, en la mayoría de ocasiones será más preciso el etiquetado automático que el manual.**
 
 - Evalúe los resultados sobre la base de datos `db.v4` con el script `vad_evaluation.pl` e inserte a 
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
+![](img/fscore.png)
 
+**Nos interesa para la detección de voz priorizar el recall ante la precisión, para asegurar que todos los segmentos de voz, sean detectados. Por otra parte de ésta manera podriamos estar detectando como voz muchos silencios, pero almenos no perderíamos información. Por ello, es necesario considerar también la precisión. Por lo que respecta al silencio nos interesa priorizar la precisión ya que si el recall es bajo no nos afecta demasiado porque significaria que está detectando segmentos de silencio como voz, pero no importa porque no perdemos información.**
+**En ninguno de los dos casos cumplimos con lo deseable. Sin embargo la Fscore de la voz es mayor que la del silencio, lo cual es positivo porque los resultados de precisión y sensibilidad por si solo no son tan significativos como sí lo es la combinación entre los dos reflejada en la Fscore.**
+**Como hemos obtenido un valor alto de Fscore, el sistema es fiable.**
 
 ### Trabajos de ampliación
 
